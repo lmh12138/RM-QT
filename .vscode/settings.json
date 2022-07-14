@@ -42,6 +42,7 @@
         "utility": "c",
         "typeinfo": "c",
         "qdebug": "cpp",
-        "qiodevice": "cpp"
+        "qiodevice": "cpp",
+        "qwidget": "cpp"
     }
 }

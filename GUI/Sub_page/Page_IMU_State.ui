@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Page_IMU_State</class>
+ <widget class="QWidget" name="Page_IMU_State">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1251</width>
+    <height>890</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="GaugeMini" name="gaugeMini">
+   <property name="geometry">
+    <rect>
+     <x>813</x>
+     <y>71</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="GaugeMini" name="gaugeMini_3">
+   <property name="geometry">
+    <rect>
+     <x>447</x>
+     <y>71</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="NavLabel" name="navLabel">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>311</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Roll:</string>
+   </property>
+  </widget>
+  <widget class="NavLabel" name="navLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>81</x>
+     <y>311</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pitch:</string>
+   </property>
+  </widget>
+  <widget class="NavLabel" name="navLabel_3">
+   <property name="geometry">
+    <rect>
+     <x>820</x>
+     <y>311</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Yaw:</string>
+   </property>
+  </widget>
+  <widget class="NavLabel" name="navLabel_4">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>730</y>
+     <width>100</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Temperature:</string>
+   </property>
+  </widget>
+  <widget class="GaugeMini" name="gaugeMini_2">
+   <property name="geometry">
+    <rect>
+     <x>81</x>
+     <y>71</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="GaugeSimple" name="gaugeSimple">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>400</y>
+     <width>200</width>
+     <height>200</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GaugeMini</class>
+   <extends>QWidget</extends>
+   <header>gaugemini.h</header>
+  </customwidget>
+  <customwidget>
+   <class>GaugeSimple</class>
+   <extends>QWidget</extends>
+   <header>gaugesimple.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NavLabel</class>
+   <extends>QLabel</extends>
+   <header>navlabel.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

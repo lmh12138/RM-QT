@@ -4,10 +4,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent) {
     // 总界面设置部分
     this->setWindowTitle("南工骁鹰上位机调参软件");
-    this->resize(screensize.width() / 3 * 2, screensize.height() / 3 * 2);
+    this->setFixedSize(screensize.width() / 3 * 2, screensize.height() / 3 * 2);
     this->move(screensize.width() / 6, screensize.height() / 6);
-    this->setMinimumSize(500, 500);
-    this->setMaximumSize(3000, 3000);
 
     // 菜单栏
     menu = new MyMenu(this);
@@ -45,16 +43,38 @@ MainWindow::~MainWindow(void) {
 }
 
 void MainWindow::OpenUart(const QString &com) {
-    uart->OpenUartThread();
     uart->OpenCOM(com);
+    uart->OpenUartThread();
 }
 
 void MainWindow::StopUart(void) {
-    uart->CloseUartThread();
     uart->CloseCOM();
+    uart->CloseUartThread();
 }
 
 void MainWindow::InterfaceSwitch(QTreeWidgetItem *item, int column) {
     int item_count = treewidget->CheckTreeItem(item);
-    qDebug() << "item: " << item_count << "column: " << column << endl;
+    switch (item_count) {
+        case 10:
+            page_imu_state->hide();
+            break;
+        case 11:
+            page_imu_state->show();
+            break;
+        case 12:
+            page_imu_state->hide();
+            break;
+        case 20:
+            page_imu_state->hide();
+            break;
+        case 30:
+            page_imu_state->hide();
+            break;
+        case 0:
+            page_imu_state->hide();
+            break;
+        default:
+            page_imu_state->hide();
+            break;
+    }
 }

@@ -1,4 +1,4 @@
-QT       += core gui serialport
+QT       += core gui serialport widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,15 +19,17 @@ DEPENDPATH += \
     GUI/    \
     GUI/Sub_page/    \
     DATA/   \
+    MyLib/  \
 
 INCLUDEPATH += \
     GUI/ \
     GUI/Sub_page/    \
     DATA/ \
+    MyLib/  \
 
 SOURCES += \
     GUI/MyTreeWidget.cpp \
-    GUI/Sub_page/Page_IMU_state.cpp \
+    GUI/Sub_page/Page_IMU_State.cpp \
     GUI/Sub_page/Page_IMU_param.cpp \
     main.cpp \
     GUI/MyMenu.cpp \
@@ -40,7 +42,7 @@ HEADERS += \
     GUI/MyMenu.h \
     GUI/MainWindow.h \
     GUI/MyTreeWidget.h \
-    GUI/Sub_page/Page_IMU_state.h \
+    GUI/Sub_page/Page_IMU_State.h \
     GUI/Sub_page/Page_IMU_param.h \
     GUI/UartComboBox.h \
     GUI/MyToolBar.h \
@@ -53,3 +55,15 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+INCLUDEPATH += $$PWD/../../../../../Qt/Qt5.9.9/MyLib
+DEPENDPATH += $$PWD/../../../../../Qt/Qt5.9.9/MyLib
+
+CONFIG(debug, debug|release){
+LIBS += -L$$PWD/../../../../../Qt/Qt5.9.9/MyLib/ -lqucd
+} else {
+LIBS += -L$$PWD/../../../../../Qt/Qt5.9.9/MyLib/ -lquc
+}
+
+FORMS += \
+    GUI/Sub_page/Page_IMU_State.ui

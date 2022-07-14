@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\\\Qt\\\\Qt5.9.9\\\\5.9.9\\\\mingw53_32\\\\include\\\\**"
+                "../build-qt-Desktop_Qt_5_9_9_MinGW_32bit-Debug/",
+                "C:\\\\Qt\\\\Qt5.9.9\\\\5.9.9\\\\mingw53_32\\\\include\\\\**",
+                "${workspaceFolder}/MyLib"
             ],
             "compilerPath": "D:\\MinGW-W64\\mingw64\\bin\\gcc.exe",
             "cStandard": "gnu17",

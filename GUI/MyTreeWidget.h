@@ -19,6 +19,9 @@ class MyTreeWidget : public QTreeWidget {
     QTreeWidgetItem *item12 = new QTreeWidgetItem(item1, QStringList("参数"));
     QTreeWidgetItem *item2 = new QTreeWidgetItem(this, QStringList("电机"));
     QTreeWidgetItem *item3 = new QTreeWidgetItem(this, QStringList("蜂鸣器"));
+
+   signals:
+    void Item11Clicked(void);
 };
 
 #endif  // MYTREEWIDGET_H

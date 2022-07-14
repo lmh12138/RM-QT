@@ -10,7 +10,7 @@
 #include "MyMenu.h"
 #include "MyToolBar.h"
 #include "MyTreeWidget.h"
-#include "Page_IMU_state.h"
+#include "Page_IMU_State.h"
 #include "Uart.h"
 class MainWindow : public QWidget {
     Q_OBJECT

@@ -16,11 +16,15 @@ MyTreeWidget::MyTreeWidget(QWidget *parent, int menutoolbar_height) : QTreeWidge
 
 int MyTreeWidget::CheckTreeItem(QTreeWidgetItem *item) {
     if (item == item1) {
-        return 1;
+        return 10;
+    } else if (item == item11) {
+        return 11;
+    } else if (item == item12) {
+        return 12;
     } else if (item == item2) {
-        return 2;
+        return 20;
     } else if (item == item3) {
-        return 3;
+        return 30;
     } else {
         return 0;
     }
