@@ -29,6 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(uart, &UART::OpenCOMFailed, toolbar, &MyToolBar::OpenCOMFailed);
     connect(uart, &UART::CloseCOMSuccess, toolbar, &MyToolBar::CloseCOMSuccess);
 
+    /*  uart    ----->  mainwindow  */
+    connect(uart, &UART::ReplyCOMCmd, this, &MainWindow::ReplyUartCmd);
+
+    /*  uart    ----->  page_imu_state  */
+    connect(uart, &UART::PAGE_IMU_STATE, page_imu_state, &Page_IMU_State::Refresh, Qt::QueuedConnection);
+
     /*  toolbar ----->  mainwindow  */
     connect(toolbar, &MyToolBar::ToOpenCOM_SGN, this, &MainWindow::OpenUart);
     connect(toolbar, &MyToolBar::ToCloseCOM_SGN, this, &MainWindow::StopUart);
@@ -48,26 +54,37 @@ void MainWindow::OpenUart(const QString &com) {
 }
 
 void MainWindow::StopUart(void) {
-    uart->CloseCOM();
     uart->CloseUartThread();
+    uart->CloseCOM();
 }
 
 void MainWindow::InterfaceSwitch(QTreeWidgetItem *item, int column) {
     int item_count = treewidget->CheckTreeItem(item);
+    QByteArray data;
     switch (item_count) {
         case 10:
+            data = uart->SendCMD(10);
+            uart->WriteData(data);
             page_imu_state->hide();
             break;
         case 11:
+            data = uart->SendCMD(11);
+            uart->WriteData(data);
             page_imu_state->show();
             break;
         case 12:
+            data = uart->SendCMD(12);
+            uart->WriteData(data);
             page_imu_state->hide();
             break;
         case 20:
+            data = uart->SendCMD(20);
+            uart->WriteData(data);
             page_imu_state->hide();
             break;
         case 30:
+            data = uart->SendCMD(30);
+            uart->WriteData(data);
             page_imu_state->hide();
             break;
         case 0:
@@ -77,4 +94,8 @@ void MainWindow::InterfaceSwitch(QTreeWidgetItem *item, int column) {
             page_imu_state->hide();
             break;
     }
+}
+
+void MainWindow::ReplyUartCmd(void) {
+    uart->WriteData(uart->SendReply());
 }

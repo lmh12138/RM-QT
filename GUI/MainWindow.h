@@ -20,6 +20,7 @@ class MainWindow : public QWidget {
     ~MainWindow();
 
     void OpenUart(const QString &com);
+    void ReplyUartCmd(void);
     void StopUart(void);
 
     void InterfaceSwitch(QTreeWidgetItem *item, int column);

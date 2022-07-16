@@ -86,20 +86,93 @@ void UART::UartThread(void) {
     }
 }
 
-void UART::ReadData(void) {
+const QByteArray UART::SendCMD(uint8_t cmd) {
     QByteArray data;
-    for (;;) {
-        data = serial->readAll();
-        if (data.isEmpty()) {
-            break;
-        }
-        uart_data.append(data);
-        if (uart_data.size() > uart_data_max) {
-            uart_data = uart_data.right(uart_data_max);
+    data[0] = 'L';
+    data[1] = 'C';
+    data[2] = cmd;
+    data[3] = 'M';
+    data[4] = 'H';
+    uint8_t* crc_data = (uint8_t*)data.data();
+    data[5] = crc8(crc_data, 5);
+    return data;
+}
+
+const QByteArray UART::SendReply(void) {
+    QByteArray data;
+    data[0] = 'L';
+    data[1] = 'D';
+    data[2] = 1;
+    data[3] = 'M';
+    data[4] = 'H';
+    uint8_t* crc_data = (uint8_t*)data.data();
+    data[5] = crc8(crc_data, 5);
+    return data;
+}
+
+void UART::WriteData(QByteArray data) {
+    if (serial->isOpen()) {
+        serial->write(data);
+    }
+}
+
+void UART::ReadData(void) {
+    qint64 length = serial->read(uart_recv_data, MAX_BUF);
+    if (0 != length) {
+        SolveData(uart_recv_data, length);
+        memset(uart_recv_data, 0, sizeof(uart_recv_data));
+    }
+}
+
+void UART::SolveData(char* data, qint64 length) {
+    uint8_t crc = crc8((uint8_t*)data, (uint16_t)(length - 1));
+    if ('L' == data[0] && 'M' == data[length - 3] && 'H' == data[length - 2] && crc == (uint8_t)data[length - 1]) {
+        if ('R' == data[1]) {
+            ReplyCOMCmd();
+        } else if ('D' == data[1]) {
+            switch (data[2]) {
+                case 10:
+                    break;
+                case 11:
+                    int imu_data[4];
+                    imu_data[0] = (uint8_t)data[3] - 180;
+                    imu_data[1] = (uint8_t)data[4] - 180;
+                    imu_data[2] = (uint8_t)data[5] - 180;
+                    imu_data[3] = data[6];
+                    PAGE_IMU_STATE(imu_data[0], imu_data[1], imu_data[2], imu_data[3]);
+                    break;
+                case 12:
+                    break;
+                case 20:
+                    break;
+                case 30:
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    if (!uart_data.isEmpty()) {
-        ReturnCOMData(uart_data);
-        uart_data.clear();
+}
+
+uint8_t UART::crc8(uint8_t* p_buffer, uint16_t buf_size) {
+    uint8_t crc = 0;
+    if (buf_size <= 0) {
+        return crc;
     }
+    while (buf_size--) {
+        for (uint8_t i = 0x80; i != 0; i /= 2) {
+            if ((crc & 0x80) != 0) {
+                crc *= 2;
+                crc ^= 0x07;  // 多项式：X8 + X2 + X + 1
+            } else {
+                crc *= 2;
+            }
+
+            if ((*p_buffer & i) != 0) {
+                crc ^= 0x07;
+            }
+        }
+        p_buffer++;
+    }
+    return crc;
 }

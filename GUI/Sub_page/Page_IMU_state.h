@@ -1,6 +1,7 @@
 #ifndef PAGE_IMU_STATE_H
 #define PAGE_IMU_STATE_H
 
+#include <QDebug>
 #include <QWidget>
 
 namespace Ui {
@@ -14,6 +15,8 @@ class Page_IMU_State : public QWidget {
     explicit Page_IMU_State(QWidget *parent = nullptr);
     explicit Page_IMU_State(QWidget *parent, int x, int y);
     ~Page_IMU_State();
+
+    void Refresh(int pitch, int roll, int yaw, int temp);
 
    private:
     Ui::Page_IMU_State *ui;

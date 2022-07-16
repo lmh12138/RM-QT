@@ -43,7 +43,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Roll:</string>
+    <string>PITCH</string>
    </property>
   </widget>
   <widget class="NavLabel" name="navLabel_2">
@@ -56,7 +56,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Pitch:</string>
+    <string>ROLL</string>
    </property>
   </widget>
   <widget class="NavLabel" name="navLabel_3">
@@ -69,7 +69,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Yaw:</string>
+    <string>YAW</string>
    </property>
   </widget>
   <widget class="NavLabel" name="navLabel_4">

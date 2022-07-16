@@ -14,8 +14,22 @@ Page_IMU_State::Page_IMU_State(QWidget *parent, int x, int y) : QWidget(parent),
     this->setGeometry(x, y, parent->width() - x, parent->height() - y);
 
     ui->gaugeMini->setGeometry(this->width() / 7, this->height() / 20, this->width() / 7, this->width() / 7);
+    ui->gaugeMini->setRange(-180.0, 180.0);
+    ui->gaugeMini->setPrecision(255);
+    ui->gaugeMini->setShowValue(true);
+    ui->gaugeMini->setAttribute(Qt::WA_TransparentForMouseEvents, true);  // 禁用鼠标事件
+
     ui->gaugeMini_2->setGeometry(this->width() / 7 * 3, this->height() / 20, this->width() / 7, this->width() / 7);
+    ui->gaugeMini_2->setRange(-180.0, 180.0);
+    ui->gaugeMini_2->setPrecision(255);
+    ui->gaugeMini_2->setShowValue(true);
+    ui->gaugeMini_2->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+
     ui->gaugeMini_3->setGeometry(this->width() / 7 * 5, this->height() / 20, this->width() / 7, this->width() / 7);
+    ui->gaugeMini_3->setRange(-180.0, 180.0);
+    ui->gaugeMini_3->setPrecision(255);
+    ui->gaugeMini_3->setShowValue(true);
+    ui->gaugeMini_3->setAttribute(Qt::WA_TransparentForMouseEvents, true);
 
     int label_x_1 = ui->gaugeMini->x() + ui->gaugeMini->width() / 2 - label_width / 2;
     int label_x_2 = ui->gaugeMini_2->x() + ui->gaugeMini_2->width() / 2 - label_width / 2;
@@ -36,4 +50,11 @@ Page_IMU_State::Page_IMU_State(QWidget *parent, int x, int y) : QWidget(parent),
 
 Page_IMU_State::~Page_IMU_State() {
     delete ui;
+}
+
+void Page_IMU_State::Refresh(int pitch, int roll, int yaw, int temp) {
+    ui->gaugeMini->setValue(pitch);
+    ui->gaugeMini_2->setValue(roll);
+    ui->gaugeMini_3->setValue(yaw);
+    ui->gaugeSimple->setValue(temp);
 }
